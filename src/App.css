@@ -32,6 +32,13 @@ input {
   width: 100%;
 }
 
+.App2 {
+  display: flex;
+  justify-content: center;
+  margin-top: 2%;
+  width: 100%;
+}
+
 .login-form, form {
   display: flex;
   flex-direction: column;

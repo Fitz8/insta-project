@@ -33,7 +33,7 @@ const App = () => {
     }, []);
 
     return (
-    <div className="App">
+    <div className={!user ? "App" : "App2"  }>
       <div id = {!user ? "main-container" : "main-container-logged"  }>
       <div id = {!user ? "right-container" : "right-container-logged"  }>
       <h1>Fake-stagram</h1>
