@@ -1,12 +1,20 @@
 import './App.css';
 import { useState, useEffect } from "react";
 import Pic from "./components/Pic";
+import SignUp from './components/SignUp';
 import Login from './components/Login';
+import ChangeEmail from './components/ChangeEmail';
+import DisplayUsers from './components/DisplayUsers';
+import {deleteAccount, getAllUsers} from './utils';
+
 
 const App = () => {
 
   const [storedImages, setStoredImages] = useState([]);
   const [user, setUser] = useState("");
+  const [signUp, setSignUp] = useState(false);
+  const [allUsers, setAllUsers] = useState(false);
+  
 
     useEffect(() => {
       const getImages= async () => {
@@ -26,9 +34,42 @@ const App = () => {
 
     return (
     <div className="App">
-      <h1>{user}</h1>
-      <Login setter={setUser} />
-       {storedImages ? (
+      <div id = {!user ? "main-container" : "main-container-logged"  }>
+      <div id = {!user ? "right-container" : "right-container-logged"  }>
+      <h1>Fake-stagram</h1>
+      {!user ? (
+      signUp ? (
+        <SignUp setter={setUser} setSignUp = {setSignUp} />
+      ) : (
+        <Login setUser={setUser} setSignUp = {setSignUp} />
+      )
+      ) : (
+      <div id="logged-text-content">
+      <h1>Welcome {user}!</h1>
+      <button className="main-button" onClick = {() => setUser("")}>Logout</button>
+      <button className="main-button" onClick = {() => deleteAccount(user, setUser)}>Delete Account!</button>
+      <ChangeEmail username={user} />
+      <button className="main-button" onClick = {() => getAllUsers(setAllUsers)}>Display All Users</button>
+      <div id="all-users-container">
+      {allUsers ? (
+        allUsers.map((item, index) => {
+          return (
+            <DisplayUsers
+              username={item.username}
+              email={item.email}
+              key={index}
+            />
+          );
+        })
+      ) : (
+        <></>
+      )}
+      </div>
+      </div>
+      )}
+      </div>
+      <div id="image-container">
+       {storedImages && user ? (
           storedImages.map((item, index) => {
             return (
               <Pic
@@ -40,9 +81,10 @@ const App = () => {
             );
           })
         ) : (
-          //Display 'loading' if there is no data from the api yet
-          <h2>Loading...</h2>
+          <img id="loginImage" src={require("./images/loginImage.png")} alt="phone with Facebook Messenger open"></img>
         )}
+      </div>
+      </div>
     </div>
   );
 }

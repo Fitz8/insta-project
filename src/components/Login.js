@@ -1,36 +1,28 @@
 import { useState } from "react";
-import { signUp } from "../utils";
+import { loginCheck } from "../utils";
 
-const Login = ({setter}) => {
-    const [username, setUsername] = useState();
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+const Login = ({ setUser, setSignUp }) => {
+  const [username, setUsername] = useState();
+  const [password, setPassword] = useState();
 
-const submitHandler = async (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
-    await signUp(username, email, password, setter);
+    await loginCheck(username, password, setUser);
+  };
 
-}
-
-    return (
-        <form onSubmit = {submitHandler}>
-            <label>Username:
-            <input onChange ={ (e) =>  setUsername(e.target.value)} />
-            </label>
-            <br></br>
-
-            <label>Email:
-            <input onChange ={ (e) =>  setEmail(e.target.value)} />
-            </label>
-            <br></br>
-
-            <label>Password:
-            <input onChange ={ (e) =>  setPassword(e.target.value)} />
-            </label>
-
-            <button type="submit">Sign Up</button>
-        </form>
-    )
-}
+  return (
+    <div className="login-form">
+      <form onSubmit={submitHandler}>
+          <input placeholder="Username" onChange={(e) => setUsername(e.target.value)} />
+        <br></br>
+          <input placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+        <br></br>
+        <button className="submit" type="submit">Log In</button>
+      </form>
+      <p id="top-margin">Not got an account?</p>
+      <button className="submit" onClick={() => setSignUp(true)}>Sign Up</button>
+    </div>
+  );
+};
 
 export default Login;
