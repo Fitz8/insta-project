@@ -1,14 +1,18 @@
 import { useState } from "react";
 import { signUp } from "../utils";
 
-const SignUp = ({ setter, setSignUp }) => {
+const SignUp = ({ setter, setSignUp, error, setError }) => {
   const [username, setUsername] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
   const submitHandler = async (event) => {
     event.preventDefault();
-    await signUp(username, email, password, setter);
+    const result = await signUp(username, email, password, setter);
+
+    if (!result) {
+      setError(true);
+    }
   };
 
   return (
@@ -27,8 +31,12 @@ const SignUp = ({ setter, setSignUp }) => {
           Sign Up
         </button>
       </form>
+      <p style={{display: error ? "block" : "none"}}>The username or email has already <br></br> been registered</p>
       <p id="top-margin">Already have an account?</p>
-      <button className="submit" onClick={() => setSignUp(false)}>Click here to login</button>
+      <button className="submit" onClick={() => { 
+        setSignUp(false) 
+        setError(false)
+      }}>Click here to login</button>
     </div>
   );
 };

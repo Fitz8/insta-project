@@ -14,6 +14,7 @@ const App = () => {
   const [user, setUser] = useState("");
   const [signUp, setSignUp] = useState(false);
   const [allUsers, setAllUsers] = useState(false);
+  const [error, setError] = useState(false);
   
 
     useEffect(() => {
@@ -39,15 +40,21 @@ const App = () => {
       <h1>Fake-stagram</h1>
       {!user ? (
       signUp ? (
-        <SignUp setter={setUser} setSignUp = {setSignUp} />
+        <SignUp setter={setUser} setSignUp = {setSignUp} error = {error} setError = {setError} />
       ) : (
-        <Login setUser={setUser} setSignUp = {setSignUp} />
+        <Login setUser={setUser} setSignUp = {setSignUp} error = {error} setError = {setError} />
       )
       ) : (
       <div id="logged-text-content">
       <h1>Welcome {user}!</h1>
-      <button className="main-button" onClick = {() => setUser("")}>Logout</button>
-      <button className="main-button" onClick = {() => deleteAccount(user, setUser)}>Delete Account!</button>
+      <button className="main-button" onClick = {() => {
+        setUser("");
+        setError(false);
+      }}>Logout</button>
+      <button className="main-button" onClick = {() => {
+        deleteAccount(user, setUser);
+        setError(false);
+        }}>Delete Account!</button>
       <ChangeEmail username={user} />
       <button className="main-button" onClick = {() => getAllUsers(setAllUsers)}>Display All Users</button>
       <div id="all-users-container">
