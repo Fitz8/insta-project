@@ -16,7 +16,7 @@ const ChangeEmail = ({username}) => {
     <h3>{updatedEmail ? `Your email has been updated to ${updatedEmail}` : ""}</h3>
     <form onSubmit = {submitHandler}>
         <input placeholder="Type your new email here" onChange ={ (e) =>  setEmail(e.target.value)} />
-        <button class="main-button" id="update-button" type="submit">Update Email</button>
+        <button className="main-button" id="update-button" type="submit">Update Email</button>
     </form>
     </div>
 )
