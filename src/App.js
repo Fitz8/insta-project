@@ -5,7 +5,7 @@ import SignUp from './components/SignUp';
 import Login from './components/Login';
 import ChangeEmail from './components/ChangeEmail';
 import DisplayUsers from './components/DisplayUsers';
-import {deleteAccount, getAllUsers} from './utils';
+import {deleteAccount} from './utils';
 
 
 const App = () => {
@@ -15,6 +15,9 @@ const App = () => {
   const [signUp, setSignUp] = useState(false);
   const [allUsers, setAllUsers] = useState(false);
   const [error, setError] = useState(false);
+  const [displayImages, setDisplayImages] = useState(false);
+  const [displayUsers, setDisplayUsers] = useState(false);
+ 
   
 
     useEffect(() => {
@@ -30,7 +33,23 @@ const App = () => {
           setStoredImages((storedImages) => [...storedImages, newImage]);
         });
       };
+
+      const getAllUsers = async () => {
+        try {
+            const response = await fetch("http://localhost:5001/user", {
+            method: "GET",
+            headers: {"Content-Type": "application/json"}
+        });
+        const data = await response.json();
+        setAllUsers(data);
+    
+        console.log(data);
+        } catch(error) {
+            console.log(error);
+        }
+    }
       getImages();
+      getAllUsers();
     }, []);
 
     return (
@@ -57,9 +76,10 @@ const App = () => {
         setSignUp(false);
         }}>Delete Account!</button>
       <ChangeEmail username={user} />
-      <button className="main-button" onClick = {() => getAllUsers(setAllUsers)}>Display All Users</button>
+      <button className="main-button" onClick={() => setDisplayUsers(!displayUsers)}>Display All Users</button>
+      <button className="main-button" onClick={() => setDisplayImages(!displayImages)}>View Image Feed</button>
       <div id="all-users-container">
-      {allUsers ? (
+      {allUsers && displayUsers ? (
         allUsers.map((item, index) => {
           return (
             <DisplayUsers
@@ -77,7 +97,7 @@ const App = () => {
       )}
       </div>
       <div id="image-container">
-       {storedImages && user ? (
+       {storedImages && user && displayImages ? (
           storedImages.map((item, index) => {
             return (
               <Pic
@@ -89,8 +109,9 @@ const App = () => {
             );
           })
         ) : (
-          <img id="loginImage" src={require("./images/loginImage.png")} alt="phone with Facebook Messenger open"></img>
+          <></>
         )}
+        <img id="loginImage" src={require("./images/loginImage.png")} alt="phone with Facebook Messenger open" style={{display: user ? "none" : "block"}}></img>
       </div>
       </div>
     </div>
