@@ -54,6 +54,7 @@ const App = () => {
       <button className="main-button" onClick = {() => {
         deleteAccount(user, setUser);
         setError(false);
+        setSignUp(false);
         }}>Delete Account!</button>
       <ChangeEmail username={user} />
       <button className="main-button" onClick = {() => getAllUsers(setAllUsers)}>Display All Users</button>

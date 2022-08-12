@@ -20,7 +20,7 @@ const Login = ({ setUser, setSignUp, error, setError }) => {
       <form onSubmit={submitHandler}>
           <input placeholder="Username" onChange={(e) => setUsername(e.target.value)} />
         <br></br>
-          <input placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+          <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
         <br></br>
         <button className="submit" type="submit">Log In</button>
       </form>
