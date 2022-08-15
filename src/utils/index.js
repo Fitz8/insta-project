@@ -1,6 +1,6 @@
 export const signUp = async (username, email, password, setter) => {
     try {
-        const response = await fetch("http://localhost:5001/user", {
+        const response = await fetch(process.env.REACT_APP_USER_URI, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
@@ -18,7 +18,7 @@ export const signUp = async (username, email, password, setter) => {
 
 export const loginCheck = async (username, password, setUser) => {
     try {
-        const response = await fetch("http://localhost:5001/login", {
+        const response = await fetch(process.env.REACT_APP_LOGIN_URI, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
@@ -36,7 +36,7 @@ export const loginCheck = async (username, password, setUser) => {
 
 export const deleteAccount = async (username, setter) => {
     try {
-        const response = await fetch("http://localhost:5001/user", {
+        const response = await fetch(process.env.REACT_APP_USER_URI, {
         method: "DELETE",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
@@ -53,7 +53,7 @@ export const deleteAccount = async (username, setter) => {
 
 export const updateEmail = async (username, email) => {
     try {
-        const response = await fetch("http://localhost:5001/user", {
+        const response = await fetch(process.env.REACT_APP_USER_URI, {
         method: "PUT",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
@@ -70,7 +70,7 @@ export const updateEmail = async (username, email) => {
 
 export const getAllUsers = async (setter, hide) => {
     try {
-        const response = await fetch("http://localhost:5001/user", {
+        const response = await fetch(process.env.REACT_APP_USER_URI, {
         method: "GET",
         headers: {"Content-Type": "application/json"}
     });

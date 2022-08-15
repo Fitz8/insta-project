@@ -8,6 +8,7 @@ import DisplayUsers from './components/DisplayUsers';
 import {deleteAccount} from './utils';
 
 
+
 const App = () => {
 
   const [storedImages, setStoredImages] = useState([]);
@@ -36,7 +37,7 @@ const App = () => {
 
       const getAllUsers = async () => {
         try {
-            const response = await fetch("http://localhost:5001/user", {
+            const response = await fetch(process.env.REACT_APP_USER_URI, {
             method: "GET",
             headers: {"Content-Type": "application/json"}
         });
